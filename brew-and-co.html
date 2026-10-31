@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f3eb">
+  <meta name="description" content="A neighborhood coffee house concept in Dhaka: thoughtfully brewed coffee, fresh bakes, and a warm place to slow down.">
+  <title>Brew &amp; Co. — A Little Pause in Your Day</title>
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <!-- Brew & Co. styling: warm coffee-house palette, layout, and typography. -->
+  <style>
+    /* Coffeehouse theme variables and reusable layout styles. */
+    :root {
+      color-scheme: light;
+      --paper: #f6f3eb;
+      --card: #fffdf8;
+      --ink: #25352d;
+      --muted: #68746b;
+      --line: #e4dfd2;
+      --forest: #244b3b;
+      --forest-deep: #173a2d;
+      --sage: #dce7dc;
+      --citrus: #e7bb70;
+      --clay: #a75e3b;
+      --shadow: 0 24px 70px rgba(34, 54, 43, .12);
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    * { box-sizing: border-box; }
+    [hidden] { display: none !important; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font: 16px/1.65 "Segoe UI", system-ui, sans-serif;
+    }
+    a { color: inherit; }
+    button, input, select { font: inherit; }
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible {
+      outline: 3px solid #d08c53;
+      outline-offset: 4px;
+    }
+    img { display: block; max-width: 100%; }
+    .wrap { width: min(1160px, calc(100% - 48px)); margin-inline: auto; }
+    .announcement {
+      padding: 8px 16px;
+      background: var(--forest-deep);
+      color: #f9f4e9;
+      font-size: .79rem;
+      text-align: center;
+    }
+    .announcement a { color: var(--citrus); font-weight: 750; text-underline-offset: 3px; }
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(228, 223, 210, .86);
+      background: rgba(246, 243, 235, .94);
+      backdrop-filter: blur(15px);
+    }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--forest); font: 700 1.18rem Georgia, serif; letter-spacing: -.025em; text-decoration: none; }
+    .brand-mark { display: grid; width: 36px; height: 36px; place-items: center; border-radius: 50%; background: var(--forest); color: var(--citrus); font: 700 1.1rem Georgia, serif; }
+    .brand small { display: block; margin-top: -3px; color: var(--muted); font: 700 .57rem/1.3 "Segoe UI", system-ui, sans-serif; letter-spacing: .19em; }
+    .nav-links { display: flex; align-items: center; gap: clamp(14px, 2.4vw, 29px); }
+    .nav-links a { color: var(--muted); font-size: .88rem; font-weight: 700; text-decoration: none; transition: color .18s ease; }
+    .nav-links a:hover { color: var(--forest); }
+    .nav-links .nav-cta { padding: 10px 15px; border-radius: 7px; background: var(--forest); color: white; }
+    .nav-links .nav-cta:hover { background: var(--forest-deep); color: white; }
+    .menu-toggle { display: none; }
+    .hero { padding-block: 36px 68px; }
+    .hero-grid { min-height: 540px; display: grid; grid-template-columns: 1fr 1.05fr; align-items: center; gap: clamp(30px, 5vw, 68px); }
+    .eyebrow { margin-bottom: 11px; color: var(--clay); font-size: .74rem; font-weight: 850; letter-spacing: .17em; text-transform: uppercase; }
+    h1, h2, h3 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; letter-spacing: -.045em; }
+    h1 { max-width: 580px; margin: 0 0 18px; font-size: clamp(3.55rem, 7.3vw, 6.4rem); line-height: .96; }
+    h1 em { color: var(--forest); font-weight: 500; }
+    .hero-copy { max-width: 460px; margin-bottom: 25px; color: var(--muted); font-size: 1.07rem; }
+    .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .button {
+      display: inline-flex;
+      min-height: 47px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 10px 17px;
+      border: 1px solid var(--forest);
+      border-radius: 7px;
+      background: var(--forest);
+      color: #fff;
+      cursor: pointer;
+      font-size: .9rem;
+      font-weight: 750;
+      text-decoration: none;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    .button:hover { transform: translateY(-2px); background: var(--forest-deep); box-shadow: 0 9px 22px rgba(36, 75, 59, .18); }
+    .button-light { border-color: var(--line); background: transparent; color: var(--forest); }
+    .button-light:hover { background: var(--sage); box-shadow: none; }
+    .hero-footnote { display: flex; align-items: center; gap: 9px; margin-top: 25px; color: var(--muted); font-size: .82rem; }
+    .open-dot { width: 9px; height: 9px; border-radius: 50%; background: #688f54; box-shadow: 0 0 0 4px #688f541e; }
+    .hero-art { position: relative; min-width: 0; padding: 0 10px 30px 0; animation: rise-in .8s .12s both; }
+    .hero-photo { width: 100%; height: 480px; border-radius: 48% 48% 10px 10px; object-fit: cover; object-position: center; }
+    .hero-photo-frame { position: absolute; inset: 14px -10px 16px 16px; z-index: -1; border: 1px solid #c5b88e; border-radius: 48% 48% 10px 10px; }
+    .photo-note { position: absolute; right: 0; bottom: 0; width: min(265px, 78%); padding: 17px 19px; border: 1px solid #e6dece; border-radius: 10px; background: var(--card); box-shadow: var(--shadow); }
+    .photo-note strong { display: block; font: 600 1.08rem Georgia, serif; }
+    .photo-note span { color: var(--muted); font-size: .8rem; }
+    .section { padding-block: 76px; scroll-margin-top: 84px; }
+    .section-top { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 26px; }
+    .section-top h2 { margin: 4px 0 0; font-size: clamp(2.15rem, 4vw, 3.45rem); line-height: 1.06; }
+    .section-top > p { max-width: 430px; margin: 0; color: var(--muted); }
+    .story { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: clamp(30px, 6vw, 74px); }
+    .story-photo-wrap { position: relative; padding: 0 18px 18px 0; }
+    .story-photo { width: 100%; height: 420px; border-radius: 8px; object-fit: cover; }
+    .story-photo-wrap::after { position: absolute; right: 0; bottom: 0; z-index: -1; width: 72%; height: 72%; border: 1px solid #cbb98e; content: ""; }
+    .story-copy h2 { margin: 4px 0 16px; font-size: clamp(2.25rem, 4vw, 3.7rem); line-height: 1.03; }
+    .story-copy > p:not(.eyebrow) { color: var(--muted); }
+    .story-signoff { display: flex; align-items: center; gap: 12px; margin-top: 23px; color: var(--forest); font: italic 1.05rem Georgia, serif; }
+    .story-signoff::before { width: 36px; height: 1px; background: var(--citrus); content: ""; }
+    .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 35px; border: 1px solid var(--line); background: var(--line); }
+    .value { padding: 22px; background: var(--paper); }
+    .value span { color: var(--clay); font-size: .73rem; font-weight: 850; letter-spacing: .12em; }
+    .value h3 { margin: 7px 0 5px; font-size: 1.25rem; }
+    .value p { margin: 0; color: var(--muted); font-size: .87rem; }
+    .menu-section { background: #eee9dc; }
+    .menu-section .wrap { max-width: 1050px; }
+    .menu-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px; margin: 24px 0 18px; }
+    .filter-tabs { display: flex; flex-wrap: wrap; gap: 7px; }
+    .filter-tab { min-height: 39px; padding: 8px 14px; border: 1px solid #d9d2c3; border-radius: 99px; background: transparent; color: var(--muted); cursor: pointer; font-size: .83rem; font-weight: 750; transition: background .16s ease, color .16s ease, border-color .16s ease; }
+    .filter-tab[aria-pressed="true"], .filter-tab:hover { border-color: var(--forest); background: var(--forest); color: #fff; }
+    .search-wrap { position: relative; width: min(100%, 290px); }
+    .search-wrap span { position: absolute; top: 50%; left: 12px; color: var(--muted); transform: translateY(-50%); }
+    .field { width: 100%; min-height: 43px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 7px; background: var(--card); color: var(--ink); }
+    .search-wrap .field { padding-left: 35px; }
+    .menu-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .menu-item { display: flex; min-width: 0; align-items: center; gap: 13px; padding: 15px; border: 1px solid #ded8cb; border-radius: 9px; background: var(--card); transition: transform .2s ease, box-shadow .2s ease; }
+    .menu-item:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgba(62, 45, 29, .08); }
+    .menu-icon { display: grid; width: 48px; height: 48px; flex: 0 0 auto; place-items: center; border-radius: 50%; background: #efe7d6; font-size: 1.3rem; }
+    .item-info { min-width: 0; flex: 1; }
+    .item-info strong { display: block; font: 600 1.03rem Georgia, serif; }
+    .item-info small { display: block; color: var(--muted); font-size: .79rem; }
+    .price { color: var(--clay); font-weight: 850; white-space: nowrap; }
+    .menu-add { display: grid; width: 34px; height: 34px; flex: 0 0 auto; place-items: center; border: 1px solid #d8dfd8; border-radius: 50%; background: var(--sage); color: var(--forest); cursor: pointer; font-size: 1.15rem; font-weight: 800; transition: transform .16s ease, background .16s ease; }
+    .menu-add:hover { transform: scale(1.08); background: #c9dbcc; }
+    .empty { grid-column: 1 / -1; padding: 28px; color: var(--muted); text-align: center; }
+    .source { margin-top: 21px; border: 1px solid #ded8cb; border-radius: 9px; background: var(--card); }
+    .source summary { padding: 12px 15px; color: var(--forest); cursor: pointer; font-size: .88rem; font-weight: 750; }
+    .source pre { max-height: 240px; overflow: auto; margin: 0; padding: 0 15px 15px; color: #394a41; font: .78rem/1.6 Consolas, "Courier New", monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+    .order-panel { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px; margin-top: 19px; padding: 17px 19px; border-radius: 9px; background: var(--forest); color: white; }
+    .order-panel h3 { margin: 0 0 2px; color: white; font: 600 1.12rem Georgia, serif; }
+    .order-panel p { margin: 0; color: #d2dfd4; font-size: .8rem; }
+    .order-total { color: var(--citrus); font-weight: 850; white-space: nowrap; }
+    .cart-list { display: grid; grid-column: 1 / -1; gap: 7px; }
+    .cart-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 8px; border-top: 1px solid #ffffff30; color: #f7f3e8; font-size: .84rem; }
+    .cart-row button { width: 26px; height: 26px; border: 1px solid #ffffff52; border-radius: 50%; background: transparent; color: white; cursor: pointer; }
+    .cart-row button:hover { background: #ffffff20; }
+    .cart-summary { display: flex; align-items: center; gap: 8px; }
+    .cart-count { display: grid; min-width: 25px; height: 25px; place-items: center; border-radius: 50%; background: var(--citrus); color: var(--forest-deep); font-size: .76rem; font-weight: 850; }
+    .order-message { grid-column: 1 / -1; min-height: 1.4em; margin: 0; color: #f0d9a8; font-size: .84rem; }
+    .booking { display: grid; grid-template-columns: .9fr 1.1fr; gap: clamp(25px, 5vw, 62px); padding: clamp(24px, 5vw, 48px); border: 1px solid var(--line); border-radius: 12px; background: var(--card); box-shadow: var(--shadow); }
+    .booking-copy h2 { margin: 5px 0 12px; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.06; }
+    .booking-copy > p:not(.eyebrow) { color: var(--muted); }
+    .booking-note { margin-top: 21px; padding: 13px 15px; border-left: 3px solid var(--citrus); background: #faf6eb; color: var(--muted); font-size: .81rem; }
+    .booking-form { display: grid; grid-template-columns: 1fr 1fr; align-content: center; gap: 13px; }
+    .booking-form label { display: grid; gap: 5px; color: var(--muted); font-size: .79rem; font-weight: 750; }
+    .booking-form .field { min-width: 0; }
+    .booking-form .full { grid-column: 1 / -1; }
+    .booking-message { grid-column: 1 / -1; min-height: 1.4em; margin: 0; color: var(--forest); font-size: .85rem; font-weight: 700; }
+    .booking-message.error { color: #a43e32; }
+    .visit-section { padding-top: 14px; }
+    .visit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 13px; }
+    .visit-card { padding: 22px; border: 1px solid var(--line); border-radius: 9px; background: var(--card); }
+    .visit-card h3 { margin: 0 0 10px; font-size: 1.33rem; }
+    .visit-card p { margin: 0; color: var(--muted); font-size: .9rem; }
+    .hours-row { display: flex; justify-content: space-between; gap: 12px; padding: 5px 0; border-bottom: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
+    .hours-row:last-child { border-bottom: 0; }
+    .visit-disclaimer { margin-top: 15px !important; font-size: .76rem !important; }
+    .footer { margin-top: 45px; background: var(--forest-deep); color: #eff0e5; }
+    .footer-main { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 35px; padding-block: 40px; }
+    .footer .brand { color: white; }
+    .footer-copy { max-width: 300px; margin-top: 12px; color: #cbd6cc; font-size: .85rem; }
+    .footer h3 { margin: 4px 0 12px; color: var(--citrus); font: 750 .76rem "Segoe UI", system-ui, sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+    .footer-links { display: grid; justify-items: start; gap: 7px; }
+    .footer-links a { color: #e2e8df; font-size: .86rem; text-decoration: none; }
+    .footer-links a:hover { color: var(--citrus); }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 14px; padding-block: 15px; border-top: 1px solid #ffffff28; color: #cbd6cc; font-size: .77rem; }
+    .footer-bottom a { color: var(--citrus); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; clip-path: inset(50%); }
+    @keyframes rise-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+    .hero-copy-block { animation: rise-in .7s both; }
+    @media (max-width: 820px) {
+      .hero-grid { min-height: 0; grid-template-columns: 1fr 1fr; gap: 25px; }
+      .hero-photo { height: 420px; }
+      .booking { grid-template-columns: 1fr; }
+      .booking-form { max-width: 600px; }
+      .footer-main { grid-template-columns: 1fr 1fr; }
+      .footer-main > :first-child { grid-column: 1 / -1; }
+    }
+    @media (max-width: 600px) {
+      .wrap { width: min(100% - 32px, 480px); }
+      .announcement { font-size: .72rem; }
+      .nav { min-height: 66px; }
+      .menu-toggle { display: inline-flex; min-height: 40px; align-items: center; padding: 7px 11px; border: 1px solid var(--line); border-radius: 6px; background: transparent; color: var(--forest); cursor: pointer; font-size: .82rem; font-weight: 750; }
+      .nav-links { position: absolute; top: calc(100% + 1px); right: 0; left: 0; display: none; align-items: stretch; gap: 0; padding: 8px 16px 14px; border-bottom: 1px solid var(--line); background: var(--paper); box-shadow: 0 12px 18px #25352d12; }
+      .site-header:has(.menu-toggle[aria-expanded="true"]) .nav-links { display: flex; flex-direction: column; }
+      .nav-links a { padding: 11px 8px; }
+      .nav-links .nav-cta { margin-top: 5px; text-align: center; }
+      .hero { padding-block: 24px 47px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 30px; }
+      h1 { font-size: clamp(3.7rem, 16vw, 5.3rem); }
+      .hero-art { width: min(100% - 12px, 440px); justify-self: center; }
+      .hero-photo { height: clamp(300px, 92vw, 440px); }
+      .section { padding-block: 55px; }
+      .story { grid-template-columns: 1fr; gap: 27px; }
+      .story-photo { height: 340px; }
+      .story-copy { order: -1; }
+      .values { grid-template-columns: 1fr; }
+      .value { padding: 17px; }
+      .section-top { align-items: flex-start; flex-direction: column; gap: 10px; }
+      .menu-tools { align-items: stretch; flex-direction: column; }
+      .search-wrap { width: 100%; }
+      .menu-grid { grid-template-columns: 1fr; }
+      .booking { gap: 17px; }
+      .visit-grid { grid-template-columns: 1fr; }
+      .footer-main { grid-template-columns: 1fr 1fr; gap: 22px; }
+      .footer-main > :first-child { grid-column: 1 / -1; }
+    }
+    @media (max-width: 380px) {
+      .wrap { width: calc(100% - 24px); }
+      .brand { font-size: 1rem; }
+      .hero-photo { height: 290px; }
+      .booking-form { grid-template-columns: 1fr; }
+      .booking-form .full { grid-column: auto; }
+      .footer-bottom { flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="announcement">A little something for your afternoon: enjoy <strong>10% off pastries after 4 pm.</strong> <a href="#menu">See what’s fresh →</a></div>
+  <header class="site-header">
+    <nav class="wrap nav" aria-label="Main navigation">
+      <a class="brand" href="#home"><span class="brand-mark" aria-hidden="true">B</span><span>Brew &amp; Co.<small>COFFEE · COMPANY</small></span></a>
+      <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">Menu</button>
+      <div class="nav-links" id="primary-navigation">
+        <a href="#story">Our story</a><a href="#menu">The menu</a><a href="#visit">Find us</a><a class="nav-cta" href="#booking">Save a seat <span aria-hidden="true">↗</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="wrap hero-grid">
+        <div class="hero-copy-block">
+          <p class="eyebrow">Your neighborhood coffee house · Dhaka</p>
+          <h1>A little pause<br>in your <em>day.</em></h1>
+          <p class="hero-copy">Good coffee, warm bread, and the kind of welcome that makes you stay a little longer. Find your corner at Brew &amp; Co.</p>
+          <div class="actions"><a class="button" href="#menu">Find your favorite <span aria-hidden="true">↓</span></a><a class="button button-light" href="#story">Meet the café</a></div>
+          <div class="hero-footnote"><span class="open-dot" aria-hidden="true"></span><span>Open daily · 8 am – 8 pm · Dhanmondi</span></div>
+        </div>
+        <div class="hero-art">
+          <div class="hero-photo-frame" aria-hidden="true"></div>
+          <img class="hero-photo" src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?auto=format&amp;fit=crop&amp;w=1200&amp;q=85" alt="Warm neighborhood coffee shop interior with a welcoming counter" fetchpriority="high" width="1200" height="1500">
+          <div class="photo-note"><strong>Made slowly. Shared gladly.</strong><span>Good things take a little time.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap section" id="story">
+      <div class="story">
+        <div class="story-photo-wrap">
+          <img class="story-photo" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&amp;fit=crop&amp;w=1100&amp;q=85" alt="Freshly brewed coffee and a cup ready to be shared" loading="lazy" width="1100" height="900">
+        </div>
+        <div class="story-copy">
+          <p class="eyebrow">A good cup, a good reason</p>
+          <h2>More than coffee.<br>A place to belong.</h2>
+          <p>We started Brew &amp; Co. with a simple thought: a neighborhood needs a place where nobody is in a hurry. A place to meet an old friend, open a book, or enjoy five quiet minutes between everything else.</p>
+          <p>So we brew with care, bake in small batches, and always leave room at the table. The coffee brings you in. The feeling makes it yours.</p>
+          <p class="story-signoff">See you around the table.</p>
+        </div>
+      </div>
+      <div class="values">
+        <article class="value"><span>01 / THE CUP</span><h3>Thoughtfully brewed</h3><p>Well-made coffee, without the fuss. Your usual, or something new.</p></article>
+        <article class="value"><span>02 / THE COUNTER</span><h3>Fresh from the oven</h3><p>Small-batch bakes made for a slow morning or an afternoon treat.</p></article>
+        <article class="value"><span>03 / THE COMPANY</span><h3>Always room for one</h3><p>Come for a catch-up, a little focus, or absolutely no reason at all.</p></article>
+      </div>
+    </section>
+
+    <section class="section menu-section" id="menu">
+      <div class="wrap">
+        <div class="section-top">
+          <div><p class="eyebrow">The good stuff</p><h2>From our counter to your table.</h2></div>
+          <p>Find a familiar favorite or try something that smells too good to pass up.</p>
+        </div>
+        <div class="menu-tools">
+          <div class="filter-tabs" role="group" aria-label="Filter menu by category">
+            <button class="filter-tab" type="button" data-category="all" aria-pressed="true">Everything</button>
+            <button class="filter-tab" type="button" data-category="coffee" aria-pressed="false">Coffee</button>
+            <button class="filter-tab" type="button" data-category="tea" aria-pressed="false">Tea &amp; more</button>
+            <button class="filter-tab" type="button" data-category="bakery" aria-pressed="false">From the oven</button>
+          </div>
+          <label class="search-wrap"><span aria-hidden="true">⌕</span><span class="sr-only">Search menu</span><input class="field" id="menu-search" type="search" placeholder="Search the menu…" autocomplete="off"></label>
+        </div>
+        <div class="menu-grid" id="menu-grid">
+          <article class="menu-item" data-id="cardamom-latte" data-name="Cardamom Latte" data-price="260" data-category="coffee" data-search="cardamom latte espresso coffee milk spice signature">
+            <span class="menu-icon" aria-hidden="true">☕</span><span class="item-info"><strong>Cardamom Latte <span aria-label="Bestseller">✦</span></strong><small>Espresso, steamed milk, cardamom</small></span><span class="price">Tk 260</span><button class="menu-add" type="button" aria-label="Add Cardamom Latte to order" data-add="cardamom-latte">+</button>
+          </article>
+          <article class="menu-item" data-id="dhaka-cold-coffee" data-name="Dhaka Cold Coffee" data-price="220" data-category="coffee" data-search="dhaka cold coffee iced slow brew milk">
+            <span class="menu-icon" aria-hidden="true">🧋</span><span class="item-info"><strong>Dhaka Cold Coffee</strong><small>Slow brew, milk, a little sweetness</small></span><span class="price">Tk 220</span><button class="menu-add" type="button" aria-label="Add Dhaka Cold Coffee to order" data-add="dhaka-cold-coffee">+</button>
+          </article>
+          <article class="menu-item" data-id="double-espresso" data-name="Double Espresso" data-price="160" data-category="coffee" data-search="double espresso coffee beans">
+            <span class="menu-icon" aria-hidden="true">◉</span><span class="item-info"><strong>Double Espresso</strong><small>Two shots, locally roasted beans</small></span><span class="price">Tk 160</span><button class="menu-add" type="button" aria-label="Add Double Espresso to order" data-add="double-espresso">+</button>
+          </article>
+          <article class="menu-item" data-id="ginger-lemon-tea" data-name="Ginger & Lemon Tea" data-price="180" data-category="tea" data-search="ginger lemon tea herbal honey">
+            <span class="menu-icon" aria-hidden="true">🍵</span><span class="item-info"><strong>Ginger &amp; Lemon Tea</strong><small>Fresh ginger, lemon, local honey</small></span><span class="price">Tk 180</span><button class="menu-add" type="button" aria-label="Add Ginger and Lemon Tea to order" data-add="ginger-lemon-tea">+</button>
+          </article>
+          <article class="menu-item" data-id="chocolate-croissant" data-name="Chocolate Croissant" data-price="180" data-category="bakery" data-search="chocolate croissant pastry bakery">
+            <span class="menu-icon" aria-hidden="true">🥐</span><span class="item-info"><strong>Chocolate Croissant</strong><small>Flaky pastry with dark chocolate</small></span><span class="price">Tk 180</span><button class="menu-add" type="button" aria-label="Add Chocolate Croissant to order" data-add="chocolate-croissant">+</button>
+          </article>
+          <article class="menu-item" data-id="banana-bread" data-name="Banana Bread" data-price="150" data-category="bakery" data-search="banana bread walnut cake bakery">
+            <span class="menu-icon" aria-hidden="true">🍰</span><span class="item-info"><strong>Banana Bread</strong><small>Fresh-baked slice with walnuts</small></span><span class="price">Tk 150</span><button class="menu-add" type="button" aria-label="Add Banana Bread to order" data-add="banana-bread">+</button>
+          </article>
+          <article class="menu-item" data-id="honey-oat-cookie" data-name="Honey Oat Cookie" data-price="90" data-category="bakery" data-search="honey oat cookie biscuit bakery">
+            <span class="menu-icon" aria-hidden="true">🍪</span><span class="item-info"><strong>Honey Oat Cookie</strong><small>Golden, chewy, baked this morning</small></span><span class="price">Tk 90</span><button class="menu-add" type="button" aria-label="Add Honey Oat Cookie to order" data-add="honey-oat-cookie">+</button>
+          </article>
+          <p class="empty" id="menu-empty" hidden>Nothing on the counter matches that. Try another search.</p>
+        </div>
+        <aside class="order-panel" aria-label="Demo order basket">
+          <div><h3>Your little order</h3><p>Build a basket for fun. This demo does not send an order to the café.</p></div>
+          <div class="cart-summary"><span class="cart-count" id="cart-count" aria-live="polite">0</span><span class="order-total" id="cart-total">Tk 0</span></div>
+          <div class="cart-list" id="cart-list" aria-live="polite"></div>
+          <button class="button button-light" type="button" id="place-order">Review demo order <span aria-hidden="true">→</span></button>
+          <p class="order-message" id="order-message" aria-live="polite">Choose a menu item to get started.</p>
+        </aside>
+        <details class="source" id="source-code">
+          <summary>Source Code — menu filters &amp; basket</summary>
+          <pre><code>function filterMenu() {
+  const query = search.value.trim().toLowerCase();
+  items.forEach(item =&gt; {
+    const matchesCategory =
+      category === "all" ||
+      item.dataset.category === category;
+    const matchesSearch =
+      item.dataset.search.includes(query);
+    item.hidden = !(matchesCategory &amp;&amp; matchesSearch);
+  });
+}
+
+function addToBasket(item) {
+  const current = basket.get(item.id);
+  basket.set(item.id, {
+    ...item,
+    quantity: current ? current.quantity + 1 : 1
+  });
+  renderBasket();
+}</code></pre>
+        </details>
+      </div>
+    </section>
+
+    <section class="wrap section" id="booking">
+      <div class="booking">
+        <div class="booking-copy">
+          <p class="eyebrow">Make an afternoon of it</p>
+          <h2>Your table is<br>waiting.</h2>
+          <p>Planning a catch-up or a little celebration? Tell us when you’d like to visit and we’ll get the table ready.</p>
+          <div class="booking-note"><strong>A little note:</strong> this is a front-end reservation demo. It shows a confirmation on this page but does not contact the café.</div>
+        </div>
+        <form class="booking-form" id="booking-form">
+          <label for="guest-name">Your name<input class="field" id="guest-name" name="name" type="text" maxlength="80" autocomplete="name" placeholder="Name" required></label>
+          <label for="guest-count">Guests<select class="field" id="guest-count" name="guests"><option value="1">1 guest</option><option value="2">2 guests</option><option value="3">3 guests</option><option value="4">4 guests</option><option value="5">5 guests</option><option value="6">6 guests</option></select></label>
+          <label for="guest-date">Date<input class="field" id="guest-date" name="date" type="date" required></label>
+          <label for="guest-time">Time<select class="field" id="guest-time" name="time"><option value="09:00">9:00 am</option><option value="11:00">11:00 am</option><option value="13:00">1:00 pm</option><option value="15:00">3:00 pm</option><option value="17:00">5:00 pm</option><option value="19:00">7:00 pm</option></select></label>
+          <label class="full" for="guest-note">Anything we should know? <span>(optional)</span><input class="field" id="guest-note" name="note" type="text" maxlength="160" placeholder="A birthday? A window seat?"></label>
+          <button class="button full" type="submit">Request a table <span aria-hidden="true">↗</span></button>
+          <p class="booking-message full" id="booking-message" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="wrap section visit-section" id="visit">
+      <div class="section-top"><div><p class="eyebrow">Come on in</p><h2>Right around the corner.</h2></div><p>A good cup is even better when it’s easy to find.</p></div>
+      <div class="visit-grid">
+        <article class="visit-card"><h3>Find our little corner</h3><p>Dhanmondi, Dhaka<br>Bangladesh</p><p style="margin-top:13px"><a class="button button-light" href="https://maps.google.com/?q=Dhanmondi+Dhaka" target="_blank" rel="noopener noreferrer">Explore the neighborhood ↗</a></p><p class="visit-disclaimer">Concept project: the address is an approximate neighborhood, not a confirmed café location.</p></article>
+        <article class="visit-card"><h3>We’ll keep the light on</h3><div class="hours-row"><span>Every day</span><strong>8:00 am – 8:00 pm</strong></div><div class="hours-row"><span>Kitchen &amp; bakes</span><strong>Until 7:00 pm</strong></div><div class="hours-row"><span>Slow mornings</span><strong>All week</strong></div><p class="visit-disclaimer">Sample hours for this design concept.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-main">
+      <div><a class="brand" href="#home"><span class="brand-mark" aria-hidden="true">B</span><span>Brew &amp; Co.<small>COFFEE · COMPANY</small></span></a><p class="footer-copy">A neighborhood café concept built around good coffee, small comforts, and making room for one more.</p></div>
+      <div><h3>Take a look</h3><nav class="footer-links" aria-label="Footer navigation"><a href="#story">Our story</a><a href="#menu">Menu &amp; demo basket</a><a href="#booking">Reservation demo</a><a href="#visit">Find us</a></nav></div>
+      <div><h3>Say hello</h3><nav class="footer-links" aria-label="Contact links"><a href="mailto:hello@brewandco.example">hello@brewandco.example</a><a href="Portfolio-Website.html#projects">Made by Shahriar Islam ↗</a><a href="#home">Back to the top ↑</a></nav></div>
+    </div>
+    <div class="wrap footer-bottom"><span>© 2026 Brew &amp; Co. · A student front-end concept.</span><a href="Portfolio-Website.html#projects">Return to portfolio</a></div>
+  </footer>
+
+  <script>
+    // Brew & Co. behavior: menu filtering, basket updates, and the reservation demo form.
+    const menuItems = Array.from(document.querySelectorAll(".menu-item"));
+    const filterButtons = document.querySelectorAll(".filter-tab");
+    const searchInput = document.getElementById("menu-search");
+    const emptyState = document.getElementById("menu-empty");
+    let activeCategory = "all";
+
+    function filterMenu() {
+      const query = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+      menuItems.forEach(item => {
+        const categoryMatches = activeCategory === "all" || item.dataset.category === activeCategory;
+        const searchMatches = item.dataset.search.includes(query);
+        item.hidden = !(categoryMatches && searchMatches);
+        if (!item.hidden) visible += 1;
+      });
+      emptyState.hidden = visible !== 0;
+    }
+
+    filterButtons.forEach(button => button.addEventListener("click", () => {
+      activeCategory = button.dataset.category;
+      filterButtons.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
+      filterMenu();
+    }));
+    searchInput.addEventListener("input", filterMenu);
+
+    const cart = new Map();
+    const cartList = document.getElementById("cart-list");
+    const cartCount = document.getElementById("cart-count");
+    const cartTotal = document.getElementById("cart-total");
+    const orderMessage = document.getElementById("order-message");
+
+    function renderCart() {
+      cartList.replaceChildren();
+      let quantity = 0;
+      let total = 0;
+      cart.forEach(item => {
+        quantity += item.quantity;
+        total += item.price * item.quantity;
+        const row = document.createElement("div");
+        row.className = "cart-row";
+        const text = document.createElement("span");
+        text.textContent = `${item.name} × ${item.quantity}`;
+        const controls = document.createElement("span");
+        controls.className = "cart-summary";
+        const amount = document.createElement("strong");
+        amount.textContent = `Tk ${item.price * item.quantity}`;
+        const remove = document.createElement("button");
+        remove.type = "button";
+        remove.dataset.remove = item.id;
+        remove.setAttribute("aria-label", `Remove one ${item.name}`);
+        remove.textContent = "−";
+        controls.append(amount, remove);
+        row.append(text, controls);
+        cartList.append(row);
+      });
+      cartCount.textContent = String(quantity);
+      cartTotal.textContent = `Tk ${total}`;
+      if (quantity === 0) orderMessage.textContent = "Choose a menu item to get started.";
+    }
+
+    document.getElementById("menu-grid").addEventListener("click", event => {
+      const button = event.target.closest("[data-add]");
+      if (!button) return;
+      const item = menuItems.find(menuItem => menuItem.dataset.id === button.dataset.add);
+      if (!item) return;
+      const current = cart.get(item.dataset.id);
+      cart.set(item.dataset.id, {
+        id: item.dataset.id,
+        name: item.dataset.name,
+        price: Number(item.dataset.price),
+        quantity: current ? current.quantity + 1 : 1
+      });
+      orderMessage.textContent = `${item.dataset.name} added to your demo basket.`;
+      renderCart();
+    });
+
+    cartList.addEventListener("click", event => {
+      const button = event.target.closest("[data-remove]");
+      if (!button) return;
+      const item = cart.get(button.dataset.remove);
+      if (!item) return;
+      if (item.quantity <= 1) cart.delete(item.id);
+      else item.quantity -= 1;
+      renderCart();
+    });
+
+    document.getElementById("place-order").addEventListener("click", () => {
+      if (cart.size === 0) {
+        orderMessage.textContent = "Add something from the menu first. The demo basket is empty.";
+        return;
+      }
+      const quantity = Array.from(cart.values()).reduce((sum, item) => sum + item.quantity, 0);
+      orderMessage.textContent = `Your demo basket has ${quantity} item${quantity === 1 ? "" : "s"}, totalling ${cartTotal.textContent}. No order has been sent.`;
+    });
+
+    const bookingForm = document.getElementById("booking-form");
+    const bookingMessage = document.getElementById("booking-message");
+    const dateInput = document.getElementById("guest-date");
+    const localToday = new Date();
+    dateInput.min = `${localToday.getFullYear()}-${String(localToday.getMonth() + 1).padStart(2, "0")}-${String(localToday.getDate()).padStart(2, "0")}`;
+
+    bookingForm.addEventListener("submit", event => {
+      event.preventDefault();
+      const data = new FormData(bookingForm);
+      const name = String(data.get("name")).trim();
+      const date = String(data.get("date"));
+      if (!name || !date) {
+        bookingMessage.className = "booking-message full error";
+        bookingMessage.textContent = "Please enter your name and choose a visit date.";
+        return;
+      }
+      const guests = Number(data.get("guests"));
+      const time = String(data.get("time"));
+      const note = String(data.get("note")).trim();
+      const visitDate = new Intl.DateTimeFormat(undefined, { dateStyle: "long" }).format(new Date(`${date}T12:00:00`));
+      bookingMessage.className = "booking-message full";
+      bookingMessage.textContent = `Thanks, ${name} — your demo request for ${guests} guest${guests === 1 ? "" : "s"} on ${visitDate} at ${time} is ready.${note ? ` Note: ${note}` : ""} Nothing has been sent to the café.`;
+      bookingForm.reset();
+    });
+
+    const menuToggle = document.getElementById("menu-toggle");
+    const navigation = document.getElementById("primary-navigation");
+    menuToggle.addEventListener("click", () => {
+      const isExpanded = menuToggle.getAttribute("aria-expanded") === "true";
+      menuToggle.setAttribute("aria-expanded", String(!isExpanded));
+    });
+    navigation.addEventListener("click", event => {
+      if (event.target.closest("a")) menuToggle.setAttribute("aria-expanded", "false");
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape") menuToggle.setAttribute("aria-expanded", "false");
+    });
+  </script>
+</body>
+</html>

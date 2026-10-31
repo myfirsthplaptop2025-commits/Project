@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#064e3b">
+  <meta name="description" content="Shahriar Islam is a computer science student and aspiring web developer in Dhaka, Bangladesh. Explore his projects, skills, and learning journey.">
+  <title>Shahriar Islam — Web Developer</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <style>
+    /* Portfolio theme styles: motion, hover states, and layout polish. */
+    #home {
+      position: relative;
+      isolation: isolate;
+    }
+
+    #home::before {
+      position: absolute;
+      z-index: -1;
+      top: -12rem;
+      right: -9rem;
+      width: 34rem;
+      height: 34rem;
+      border: 1px solid rgb(253 224 71 / 12%);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3rem rgb(253 224 71 / 3%), 0 0 0 7rem rgb(253 224 71 / 2%);
+      content: "";
+      animation: orbit-drift 24s linear infinite;
+    }
+
+    #home h1 span {
+      display: inline-block;
+      animation: accent-glow 4s ease-in-out infinite;
+    }
+
+    #home [data-hero] {
+      animation: hero-rise 700ms cubic-bezier(.2, .7, .2, 1) both;
+    }
+
+    #home [data-hero="2"] { animation-delay: 100ms; }
+    #home [data-hero="3"] { animation-delay: 190ms; }
+    #home [data-hero="4"] { animation-delay: 280ms; }
+    #home [data-hero="5"] { animation-delay: 370ms; }
+
+    #home .profile-card {
+      animation: card-float 6s ease-in-out 500ms infinite;
+      transition: transform 300ms ease, box-shadow 300ms ease;
+    }
+
+    #home .profile-card:hover {
+      transform: translateY(-8px) rotate(1deg);
+      box-shadow: 0 28px 60px rgb(0 0 0 / 24%);
+    }
+
+    #home .profile-card [aria-hidden="true"].text-2xl {
+      transform-origin: center;
+      animation: slow-spin 12s linear infinite;
+    }
+
+    #skills article,
+    #projects article,
+    #about article {
+      transition: transform 250ms ease, box-shadow 250ms ease, border-color 250ms ease;
+    }
+
+    #skills article:hover,
+    #projects article:hover,
+    #about article:hover {
+      transform: translateY(-5px);
+      border-color: rgb(5 150 105 / 35%);
+      box-shadow: 0 18px 35px rgb(6 78 59 / 10%);
+    }
+
+    a,
+    button,
+    summary {
+      transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+    }
+
+    a:hover,
+    button:hover {
+      transform: translateY(-1px);
+    }
+
+    @keyframes hero-rise {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes card-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-9px); }
+    }
+
+    @keyframes orbit-drift {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes slow-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes accent-glow {
+      0%, 100% { text-shadow: 0 0 0 rgb(253 224 71 / 0%); }
+      50% { text-shadow: 0 0 24px rgb(253 224 71 / 30%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 font-sans leading-relaxed text-gray-900 antialiased">
+  <!-- Main portfolio layout: navigation, hero, and the sections below explain the work and learning journey. -->
+  <a class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-green-900 focus:px-5 focus:py-3 focus:font-bold focus:text-white" href="#main-content">Skip to content</a>
+
+  <!-- Site header and primary navigation -->
+  <header class="sticky top-0 z-20 border-b border-gray-200 bg-white">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between gap-5 px-5 py-4 sm:px-8" aria-label="Main navigation">
+      <a class="flex items-center gap-3" href="#home" aria-label="Shahriar Islam home">
+        <span class="grid h-10 w-10 place-items-center rounded-xl bg-green-900 text-lg font-black text-yellow-300">S</span>
+        <span class="text-lg font-black tracking-tight">Shahriar<span class="text-green-700">.</span></span>
+      </a>
+      <div class="hidden items-center gap-7 text-sm font-semibold text-gray-600 md:flex">
+        <a class="hover:text-green-800" href="#home">Home</a>
+        <a class="hover:text-green-800" href="#about">About</a>
+        <a class="hover:text-green-800" href="#skills">Skills</a>
+        <a class="hover:text-green-800" href="#projects">Projects</a>
+        <a class="hover:text-green-800" href="#education">Education</a>
+        <a class="rounded-lg bg-green-900 px-5 py-2.5 font-bold text-white hover:bg-green-800" href="#contact">Contact me <span aria-hidden="true">↗</span></a>
+      </div>
+      <details class="relative md:hidden">
+        <summary class="cursor-pointer list-none rounded-lg border border-gray-300 px-4 py-2 text-sm font-bold text-gray-800">Menu <span class="ml-1 text-green-700" aria-hidden="true">+</span></summary>
+        <div class="absolute right-0 mt-3 grid w-48 gap-1 rounded-xl border border-gray-200 bg-white p-2 shadow-xl">
+          <a class="rounded-lg px-3 py-2 text-sm font-semibold hover:bg-green-50" href="#home">Home</a>
+          <a class="rounded-lg px-3 py-2 text-sm font-semibold hover:bg-green-50" href="#about">About</a>
+          <a class="rounded-lg px-3 py-2 text-sm font-semibold hover:bg-green-50" href="#skills">Skills</a>
+          <a class="rounded-lg px-3 py-2 text-sm font-semibold hover:bg-green-50" href="#projects">Projects</a>
+          <a class="rounded-lg px-3 py-2 text-sm font-semibold hover:bg-green-50" href="#education">Education</a>
+          <a class="rounded-lg px-3 py-2 text-sm font-semibold hover:bg-green-50" href="#contact">Contact</a>
+        </div>
+      </details>
+    </nav>
+  </header>
+
+  <main id="main-content">
+    <!-- Hero section: introduction and personal profile card -->
+    <section class="overflow-hidden bg-green-900 text-white" id="home">
+      <div class="mx-auto grid max-w-6xl items-center gap-12 px-5 py-16 sm:px-8 sm:py-20 md:py-24 lg:grid-cols-12 lg:gap-16">
+        <div class="lg:col-span-7">
+          <p class="mb-6 flex items-center gap-3 text-xs font-extrabold uppercase tracking-widest text-yellow-300" data-hero="1">
+            <span class="h-px w-8 bg-yellow-300" aria-hidden="true"></span>
+            Computer science student <span class="text-green-400" aria-hidden="true">/</span> Dhaka, Bangladesh
+          </p>
+          <h1 class="max-w-3xl text-5xl font-black leading-none tracking-tight sm:text-6xl lg:text-7xl" data-hero="2">Thoughtful ideas.<br><span class="text-yellow-300">Made for</span><br>the web.</h1>
+          <p class="mt-7 max-w-xl text-lg leading-8 text-green-100 sm:text-xl" data-hero="3">I'm Shahriar Islam, a computer science student learning to create clear, useful digital experiences—one project at a time.</p>
+          <div class="mt-9 flex flex-wrap items-center gap-4" data-hero="4">
+            <a class="inline-flex items-center rounded-lg bg-yellow-300 px-6 py-3.5 font-extrabold text-green-900 hover:bg-yellow-200" href="#projects">Explore my projects <span class="ml-3 text-lg" aria-hidden="true">↘</span></a>
+            <a class="rounded-lg px-3 py-3 font-bold text-white hover:text-yellow-300" href="#about">Get to know me <span aria-hidden="true">→</span></a>
+          </div>
+          <div class="mt-12 flex flex-wrap gap-x-8 gap-y-3 border-t border-white border-opacity-20 pt-5 text-sm text-green-100" data-hero="5">
+            <span><strong class="mr-1 text-white">03</strong> projects</span>
+            <span><strong class="mr-1 text-white">06</strong> skills in progress</span>
+            <span class="font-semibold text-yellow-300">Currently learning JavaScript</span>
+          </div>
+        </div>
+
+        <div class="mx-auto w-full max-w-sm lg:col-span-5">
+          <div class="profile-card rounded-3xl border border-white border-opacity-20 bg-green-800 p-3 shadow-2xl sm:p-4">
+            <div class="relative flex h-96 flex-col justify-between overflow-hidden rounded-2xl bg-yellow-50 p-6 sm:p-8" role="img" aria-label="Classic typographic profile card for Shahriar Islam">
+              <div class="absolute -right-12 -top-12 h-48 w-48 rounded-full border border-green-900 border-opacity-10" aria-hidden="true"></div>
+              <div class="absolute -right-5 -top-5 h-32 w-32 rounded-full border border-green-900 border-opacity-10" aria-hidden="true"></div>
+              <div class="absolute bottom-12 right-8 h-1/2 w-px bg-green-900 bg-opacity-10" aria-hidden="true"></div>
+              <div class="relative flex items-center justify-between border-b border-green-900 border-opacity-20 pb-4">
+                <span class="text-xs font-bold uppercase tracking-widest text-green-900">Personal portfolio</span>
+                <span class="text-xs font-semibold text-green-800">Dhaka · Bangladesh</span>
+              </div>
+              <div class="relative flex flex-1 items-center justify-center">
+                <div class="grid h-48 w-48 place-items-center rounded-full border border-green-900 border-opacity-20 bg-white shadow-sm sm:h-56 sm:w-56">
+                  <div class="grid h-40 w-40 place-items-center rounded-full border border-yellow-500 bg-green-900 sm:h-48 sm:w-48">
+                    <span class="font-serif text-8xl leading-none tracking-tight text-yellow-100 sm:text-9xl">S<span class="text-yellow-300">.</span></span>
+                  </div>
+                </div>
+                <span class="absolute right-1 top-1/4 rounded-full bg-yellow-300 px-3 py-2 text-xs font-extrabold uppercase tracking-widest text-green-900">Est. 2005</span>
+              </div>
+              <div class="relative border-t border-green-900 border-opacity-20 pt-4">
+                <div class="min-w-0 pr-10">
+                  <p class="break-words font-serif text-lg font-bold leading-tight tracking-tight text-green-900 lg:text-2xl">Shahriar Islam</p>
+                  <p class="mt-1 text-xs font-medium uppercase leading-tight tracking-normal text-green-800">Student · Web developer</p>
+                </div>
+                <span class="absolute bottom-1 right-0 text-2xl text-green-800" aria-hidden="true">✳</span>
+              </div>
+            </div>
+            <p class="px-2 pb-1 pt-4 text-sm leading-6 text-green-100">A thoughtful approach to learning, designing, and building for the web.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About section: personal story and learning goals -->
+    <section class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24" id="about">
+      <div class="grid gap-10 md:grid-cols-12 md:gap-16">
+        <div class="md:col-span-4">
+          <p class="text-xs font-extrabold uppercase tracking-widest text-green-700">01 / About me</p>
+          <h2 class="mt-4 text-4xl font-black leading-tight tracking-tight sm:text-5xl">Curiosity is where I start.</h2>
+        </div>
+        <div class="md:col-span-8">
+          <p class="text-xl leading-9 text-gray-800">I'm Shahriar, a second-year Computer Science student who enjoys understanding how things work—and making them simpler for other people.</p>
+          <p class="mt-5 max-w-2xl leading-8 text-gray-600">I started with HTML and CSS, discovered how quickly Tailwind can bring a layout together, and am now exploring JavaScript. Building small projects helps me practice the details: a clear layout, useful interactions, and a comfortable experience on every screen.</p>
+          <div class="mt-9 grid gap-4 sm:grid-cols-3">
+            <div class="rounded-xl border border-gray-200 bg-white p-5">
+              <p class="text-xs font-extrabold uppercase tracking-widest text-green-700">My approach</p>
+              <p class="mt-2 font-bold">Learn by making</p>
+            </div>
+            <div class="rounded-xl border border-gray-200 bg-white p-5">
+              <p class="text-xs font-extrabold uppercase tracking-widest text-green-700">My focus</p>
+              <p class="mt-2 font-bold">Useful, clear design</p>
+            </div>
+            <div class="rounded-xl border border-gray-200 bg-white p-5">
+              <p class="text-xs font-extrabold uppercase tracking-widest text-green-700">My next step</p>
+              <p class="mt-2 font-bold">Grow as a developer</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Skills section: tools and strengths the student is building -->
+    <section class="border-y border-green-100 bg-green-50" id="skills">
+      <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
+        <div class="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+          <div>
+            <p class="text-xs font-extrabold uppercase tracking-widest text-green-700">02 / Skills</p>
+            <h2 class="mt-4 text-4xl font-black tracking-tight sm:text-5xl">Tools I’m learning with.</h2>
+          </div>
+          <p class="max-w-md leading-7 text-gray-600">A practical toolkit in progress—strengthened with every page, experiment, and project.</p>
+        </div>
+        <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <article class="rounded-2xl border border-green-100 bg-white p-6">
+            <p class="text-xs font-extrabold uppercase tracking-widest text-green-700">Structure</p>
+            <h3 class="mt-3 text-2xl font-black">HTML</h3>
+            <p class="mt-2 text-sm leading-6 text-gray-600">Semantic markup and accessible foundations.</p>
+          </article>
+          <article class="rounded-2xl border border-green-100 bg-white p-6">
+            <p class="text-xs font-extrabold uppercase tracking-widest text-green-700">Presentation</p>
+            <h3 class="mt-3 text-2xl font-black">CSS</h3>
+            <p class="mt-2 text-sm leading-6 text-gray-600">Responsive layouts and thoughtful visual detail.</p>
+          </article>
+          <article class="rounded-2xl border border-green-100 bg-white p-6">
+            <p class="text-xs font-extrabold uppercase tracking-widest text-green-700">Design system</p>
+            <h3 class="mt-3 text-2xl font-black">Tailwind CSS</h3>
+            <p class="mt-2 text-sm leading-6 text-gray-600">Consistent interfaces built with utility classes.</p>
+          </article>
+          <article class="rounded-2xl border border-green-100 bg-white p-6">
+            <p class="text-xs font-extrabold uppercase tracking-widest text-green-700">Interactivity</p>
+            <h3 class="mt-3 text-2xl font-black">JavaScript</h3>
+            <p class="mt-2 text-sm leading-6 text-gray-600">Learning to build responsive, useful interactions.</p>
+          </article>
+          <article class="rounded-2xl border border-green-100 bg-white p-6">
+            <p class="text-xs font-extrabold uppercase tracking-widest text-green-700">Version control</p>
+            <h3 class="mt-3 text-2xl font-black">Git</h3>
+            <p class="mt-2 text-sm leading-6 text-gray-600">Tracking changes and keeping work organized.</p>
+          </article>
+          <article class="rounded-2xl border border-green-100 bg-white p-6">
+            <p class="text-xs font-extrabold uppercase tracking-widest text-green-700">Collaboration</p>
+            <h3 class="mt-3 text-2xl font-black">GitHub</h3>
+            <p class="mt-2 text-sm leading-6 text-gray-600">Sharing projects and learning in the open.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects section: selected work and live project demos -->
+    <section class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24" id="projects">
+      <div class="mb-10 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+        <div>
+          <p class="text-xs font-extrabold uppercase tracking-widest text-green-700">03 / Selected work</p>
+          <h2 class="mt-4 text-4xl font-black tracking-tight sm:text-5xl">Made to be explored.</h2>
+        </div>
+        <p class="max-w-md leading-7 text-gray-600">Three personal projects, each with a different idea and a shared goal: make something useful and enjoyable to use.</p>
+      </div>
+
+      <div class="grid gap-6">
+        <article class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+          <div class="bg-green-50 p-5 sm:p-7">
+            <div class="mx-auto max-w-md rounded-xl border border-green-100 bg-white p-5 shadow-sm">
+              <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                <div><p class="text-xs font-bold uppercase tracking-widest text-green-700">Your space</p><p class="mt-1 text-lg font-black">Today, at a glance.</p></div>
+                <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-800">03 tasks</span>
+              </div>
+              <div class="space-y-3 py-4 text-sm">
+                <p class="flex items-center gap-3 text-gray-400"><span class="grid h-5 w-5 place-items-center rounded-full bg-green-100 text-xs font-bold text-green-800">✓</span><span class="line-through">Sketch the new layout</span><span class="ml-auto text-xs">DONE</span></p>
+                <p class="flex items-center gap-3 font-semibold text-gray-800"><span class="h-5 w-5 rounded-full border-2 border-yellow-500"></span>Build responsive cards</p>
+                <p class="flex items-center gap-3 text-gray-600"><span class="h-5 w-5 rounded-full border-2 border-gray-200"></span>Review accessibility</p>
+              </div>
+              <div class="h-1.5 rounded-full bg-gray-100"><div class="h-1.5 w-1/3 rounded-full bg-green-700"></div></div>
+            </div>
+          </div>
+          <div class="p-6 sm:p-8">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <h3 class="text-3xl font-black tracking-tight">TaskFlow</h3>
+              <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-800">01 · PRODUCTIVITY</span>
+            </div>
+            <p class="mt-3 leading-7 text-gray-600">A focused task planner with search, priorities, helpful views, and a calm interface that keeps the next step clear.</p>
+            <div class="mt-5 flex flex-wrap gap-2 text-xs font-bold text-gray-600"><span class="rounded-full border border-gray-200 px-3 py-1.5">HTML</span><span class="rounded-full border border-gray-200 px-3 py-1.5">CSS</span><span class="rounded-full border border-gray-200 px-3 py-1.5">JavaScript</span></div>
+            <a class="mt-7 inline-flex items-center gap-2 rounded-3xl bg-green-900 px-5 py-3 font-bold text-white hover:bg-green-800" href="taskflow.html">Live Demo <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+
+        <article class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+          <div class="bg-yellow-50 p-5 sm:p-7">
+            <div class="mx-auto max-w-md rounded-xl border border-yellow-200 bg-white p-5 shadow-sm">
+              <div class="flex items-center justify-between border-b border-yellow-100 pb-4">
+                <div><p class="text-xs font-bold uppercase tracking-widest text-yellow-800">Dhaka · Est. 2024</p><p class="mt-1 text-lg font-black">Brew &amp; Co.</p></div>
+                <span class="grid h-10 w-10 place-items-center rounded-full bg-green-900 text-lg font-black text-yellow-300">B</span>
+              </div>
+              <div class="divide-y divide-yellow-100 text-sm">
+                <p class="flex justify-between py-3 text-gray-700"><span>Cardamom latte</span><strong class="text-green-800">Tk 260</strong></p>
+                <p class="flex justify-between py-3 text-gray-700"><span>Cold coffee</span><strong class="text-green-800">Tk 220</strong></p>
+                <p class="flex justify-between py-3 text-gray-700"><span>Chocolate croissant</span><strong class="text-green-800">Tk 180</strong></p>
+              </div>
+              <span class="mt-2 inline-flex rounded-full bg-green-900 px-4 py-2 text-xs font-bold text-yellow-200">Find your little pause →</span>
+            </div>
+          </div>
+          <div class="p-6 sm:p-8">
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <h3 class="text-3xl font-black tracking-tight">Brew &amp; Co.</h3>
+              <span class="rounded-full bg-yellow-100 px-3 py-1 text-xs font-bold text-yellow-900">02 · HOSPITALITY</span>
+            </div>
+            <p class="mt-3 leading-7 text-gray-600">A neighborhood café concept with a browsable menu, a little story, and warm details that invite you in.</p>
+            <div class="mt-5 flex flex-wrap gap-2 text-xs font-bold text-gray-600"><span class="rounded-full border border-gray-200 px-3 py-1.5">HTML</span><span class="rounded-full border border-gray-200 px-3 py-1.5">CSS</span><span class="rounded-full border border-gray-200 px-3 py-1.5">JavaScript</span></div>
+            <a class="mt-7 inline-flex items-center gap-2 rounded-3xl bg-green-900 px-5 py-3 font-bold text-white hover:bg-green-800" href="brew-and-co.html">Live Demo <span aria-hidden="true">↗</span></a>
+          </div>
+        </article>
+
+        <article class="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+          <div class="grid lg:grid-cols-2">
+            <div class="bg-green-50 p-5 sm:p-7">
+              <div class="mx-auto max-w-md rounded-xl border border-green-100 bg-gray-900 p-4 shadow-sm">
+                <div class="rounded-lg bg-gray-800 px-5 py-4 text-right"><p class="text-sm text-gray-400">248 ÷ 4</p><p class="mt-1 text-4xl font-light tracking-tight text-white">62</p></div>
+                <div class="mt-3 grid grid-cols-4 gap-2 text-center text-sm font-bold">
+                  <span class="rounded-lg bg-gray-700 py-2 text-gray-200">AC</span><span class="rounded-lg bg-gray-700 py-2 text-gray-200">DEL</span><span class="rounded-lg bg-gray-700 py-2 text-gray-200">( )</span><span class="rounded-lg bg-green-800 py-2 text-yellow-200">÷</span>
+                  <span class="rounded-lg bg-gray-800 py-2 text-white">7</span><span class="rounded-lg bg-gray-800 py-2 text-white">8</span><span class="rounded-lg bg-gray-800 py-2 text-white">9</span><span class="rounded-lg bg-green-800 py-2 text-yellow-200">×</span>
+                  <span class="rounded-lg bg-gray-800 py-2 text-white">4</span><span class="rounded-lg bg-gray-800 py-2 text-white">5</span><span class="rounded-lg bg-gray-800 py-2 text-white">6</span><span class="rounded-lg bg-green-800 py-2 text-yellow-200">−</span>
+                  <span class="rounded-lg bg-gray-800 py-2 text-white">1</span><span class="rounded-lg bg-gray-800 py-2 text-white">2</span><span class="rounded-lg bg-gray-800 py-2 text-white">3</span><span class="rounded-lg bg-green-800 py-2 text-yellow-200">+</span>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col justify-center p-6 sm:p-8">
+              <div class="flex flex-wrap items-center justify-between gap-3">
+                <h3 class="text-3xl font-black tracking-tight">Everyday Calculator</h3>
+                <span class="rounded-full bg-green-100 px-3 py-1 text-xs font-bold text-green-800">03 · UTILITY</span>
+              </div>
+              <p class="mt-3 leading-7 text-gray-600">A keyboard-friendly calculator with scientific functions, memory, and saved history—built to make everyday calculations easier.</p>
+              <div class="mt-5 flex flex-wrap gap-2 text-xs font-bold text-gray-600"><span class="rounded-full border border-gray-200 px-3 py-1.5">HTML</span><span class="rounded-full border border-gray-200 px-3 py-1.5">CSS</span><span class="rounded-full border border-gray-200 px-3 py-1.5">JavaScript</span></div>
+              <a class="mt-7 inline-flex items-center gap-2 rounded-3xl bg-green-900 px-5 py-3 font-bold text-white hover:bg-green-800" href="everyday-calculator.html">Live Demo <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Education section: background and learning journey -->
+    <section class="border-y border-green-100 bg-white" id="education">
+      <div class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24">
+        <div class="grid gap-10 md:grid-cols-12 md:gap-16">
+          <div class="md:col-span-4">
+            <p class="text-xs font-extrabold uppercase tracking-widest text-green-700">04 / Education</p>
+            <h2 class="mt-4 text-4xl font-black leading-tight tracking-tight sm:text-5xl">A work in progress.</h2>
+          </div>
+          <div class="md:col-span-8">
+            <div class="border-l-2 border-green-100">
+              <article class="relative border-b border-gray-200 pb-7 pl-7">
+                <span class="absolute -left-2 top-1 h-3.5 w-3.5 rounded-full border-2 border-white bg-green-700" aria-hidden="true"></span>
+                <p class="text-xs font-extrabold uppercase tracking-widest text-green-700">2024 — Present</p>
+                <h3 class="mt-2 text-xl font-black">B.Sc. in Computer Science &amp; Engineering</h3>
+                <p class="mt-1 text-gray-600">Institution details to be added.</p>
+              </article>
+              <article class="relative border-b border-gray-200 py-7 pl-7">
+                <span class="absolute -left-2 top-9 h-3.5 w-3.5 rounded-full border-2 border-white bg-yellow-500" aria-hidden="true"></span>
+                <p class="text-xs font-extrabold uppercase tracking-widest text-gray-500">2021 — 2023</p>
+                <h3 class="mt-2 text-xl font-black">Higher Secondary Certificate, Science</h3>
+                <p class="mt-1 text-gray-600">College details to be added.</p>
+              </article>
+              <article class="relative pt-7 pl-7">
+                <span class="absolute -left-2 top-9 h-3.5 w-3.5 rounded-full border-2 border-white bg-gray-300" aria-hidden="true"></span>
+                <p class="text-xs font-extrabold uppercase tracking-widest text-gray-500">Ongoing</p>
+                <h3 class="mt-2 text-xl font-black">Web development, one project at a time</h3>
+                <p class="mt-1 text-gray-600">Independent learning in HTML, CSS, Tailwind CSS, and JavaScript.</p>
+              </article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact section: ways to reach out and connect -->
+    <section class="mx-auto max-w-6xl px-5 py-20 sm:px-8 sm:py-24" id="contact">
+      <div class="overflow-hidden rounded-3xl bg-green-900 text-white">
+        <div class="grid md:grid-cols-2">
+          <div class="p-7 sm:p-10 lg:p-14">
+            <p class="text-xs font-extrabold uppercase tracking-widest text-yellow-300">05 / Contact</p>
+            <h2 class="mt-4 text-4xl font-black leading-tight tracking-tight sm:text-5xl">Let’s make something meaningful.</h2>
+            <p class="mt-5 max-w-md leading-7 text-green-100">I’m open to learning opportunities, collaborations, and conversations with people who care about making the web better.</p>
+            <div class="mt-8 grid gap-4 text-sm">
+              <a class="w-fit break-all font-semibold text-yellow-200 hover:text-white" href="mailto:shahriar@example.com">shahriar@example.com <span class="text-xs text-green-300">(sample)</span></a>
+              <a class="w-fit text-green-100 hover:text-yellow-200" href="https://github.com/shahriar-islam" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
+              <a class="w-fit text-green-100 hover:text-yellow-200" href="https://www.linkedin.com/in/shahriar-islam/" target="_blank" rel="noopener noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
+            </div>
+            <p class="mt-5 text-xs text-green-300">Sample contact details — update them before publishing.</p>
+          </div>
+          <form class="grid content-center gap-4 bg-green-800 p-7 sm:p-10 lg:p-14" action="mailto:shahriar@example.com" method="post" enctype="text/plain">
+            <label class="grid gap-2 text-sm font-semibold text-green-50" for="contact-name">Your name<input class="rounded-lg border border-green-700 bg-green-900 px-4 py-3 text-base text-white placeholder-green-400 focus:border-yellow-300 focus:outline-none" id="contact-name" name="Name" type="text" autocomplete="name" placeholder="How should I call you?" required></label>
+            <label class="grid gap-2 text-sm font-semibold text-green-50" for="contact-email">Email address<input class="rounded-lg border border-green-700 bg-green-900 px-4 py-3 text-base text-white placeholder-green-400 focus:border-yellow-300 focus:outline-none" id="contact-email" name="Email" type="email" autocomplete="email" placeholder="you@example.com" required></label>
+            <label class="grid gap-2 text-sm font-semibold text-green-50" for="contact-message">Your message<textarea class="h-32 resize-y rounded-lg border border-green-700 bg-green-900 px-4 py-3 text-base text-white placeholder-green-400 focus:border-yellow-300 focus:outline-none" id="contact-message" name="Message" placeholder="What’s on your mind?" required></textarea></label>
+            <p class="text-xs leading-5 text-green-200">This HTML-only form opens your email app to send the message.</p>
+            <button class="w-fit rounded-lg bg-yellow-300 px-6 py-3 font-extrabold text-green-900 hover:bg-yellow-200" type="submit">Say hello <span class="ml-2" aria-hidden="true">↗</span></button>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t border-gray-200 bg-white">
+    <div class="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-5 py-7 text-sm text-gray-500 sm:px-8 md:flex-row">
+      <p>© 2026 Shahriar Islam <span class="mx-1 font-bold text-green-700">/</span> Made with curiosity.</p>
+      <nav class="flex flex-wrap justify-center gap-x-6 gap-y-2 font-semibold" aria-label="Footer navigation">
+        <a class="hover:text-green-800" href="#home">Home</a>
+        <a class="hover:text-green-800" href="#about">About</a>
+        <a class="hover:text-green-800" href="#projects">Projects</a>
+        <a class="hover:text-green-800" href="#contact">Contact</a>
+      </nav>
+      <a class="font-bold text-gray-700 hover:text-green-800" href="#home">Back to top ↑</a>
+    </div>
+  </footer>
+</body>
+</html>
